@@ -4,7 +4,6 @@ import streamlit as st  # Web App
 
 import os
 from PIL import Image
-from utils import *
 import asyncio
 import eunomia
 from langchain.vectorstores import FAISS
