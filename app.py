@@ -64,7 +64,7 @@ api_key = st.text_input(
     placeholder="sk-...",
     help=f"['What is that?']({api_key_url})",
     type="password",
-    value="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",
+    value="",
 )
 
 os.environ["OPENAI_API_KEY"] = f"{api_key}"  #
