@@ -75,7 +75,7 @@ def main():
         text_input = st.text_area("Enter your text here:")
 
     # A button to trigger the processing
-    process_button = st.button("Process Input")
+    process_button = st.button("Extract Information")
 
     if process_button:
         if input_method == "Upload PDF file" and uploaded_file is not None:
