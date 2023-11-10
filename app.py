@@ -1,6 +1,4 @@
 import streamlit as st  # Web App
-
-
 import os
 from PIL import Image
 import eunomia
@@ -46,13 +44,6 @@ with st.sidebar:
     )
 
 
-text_input = ""
-uploaded_file = ""
-
-
-docs = None
-api_key = " "
-
 # title
 st.title("Agent-based Learning of Materials Datasets from Scientific Literature")
 image = Image.open("img/TOC.png")
@@ -67,10 +58,15 @@ with col1:
 def main():
     # Radio button for user choice between uploading a file and entering text
     input_method = st.radio("Choose input method:", ("Upload PDF file", "Input text"))
-    with st.form(key="columns_in_form", clear_on_submit=False):
-        uploaded_file = None
-        text_input = None
-
+    # Add a checkbox for the chain-of-verification
+    chain_of_verification = st.checkbox(
+        "Add Chain-of-Verification (CoV)",
+        help=f"Adds an iterative process of verifying agent's answers. Note that this will increase the running time of your information extraction, but will result better answers.",
+    )
+    with st.form(
+        key="columns_in_form",
+        clear_on_submit=False,
+    ):
         # Conditional logic to display the file uploader or the text input area based on the radio button selection
         if input_method == "Upload PDF file":
             uploaded_file = st.file_uploader(
@@ -113,9 +109,12 @@ def main():
             faiss_index = FAISS.from_documents(
                 sliced_pages, OpenAIEmbeddings(model=Embedding_model)
             )
-
+            # Dynamic tool names list based on checkbox
+            tool_names = ["read_doc"]
+            if chain_of_verification:
+                tool_names.extend(["eval_justification", "recheck_justification"])
             tools = EunomiaTools(
-                tool_names=["read_doc", "eval_justification", "recheck_justification"],
+                tool_names=tool_names,
                 vectorstore=faiss_index,
             ).get_tools()
             agent = Eunomia(tools=tools, model="gpt-4", get_cost=True)
