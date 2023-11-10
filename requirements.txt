@@ -2,3 +2,4 @@ git+https://github.com/AI4ChemS/Eunomia.git
 py3Dmol
 pymatgen
 stmol
+ipython_genutils
