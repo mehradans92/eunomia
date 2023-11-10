@@ -77,13 +77,6 @@ def main():
     # A button to trigger the processing
     process_button = st.button("Extract Information")
 
-    from pymatgen.vis.structure_vtk import StructureVis
-    from pymatgen import Structure
-
-    structure = Structure.from_file("qmof-000dce3.cif")
-    vis = StructureVis(structure)
-    vis.show()
-
     if process_button:
         if input_method == "Upload PDF file" and uploaded_file is not None:
             # Process the uploaded PDF
