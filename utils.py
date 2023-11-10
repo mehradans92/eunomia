@@ -11,11 +11,11 @@ def visualize(cif_path):
     xyz = XYZ(structure).__str__()
 
     # Set up the py3Dmol view
-    view = py3Dmol.view(width=800, height=400)
+    view = py3Dmol.view(width=600, height=400)
     view.addModel(xyz, "xyz")
     view.setStyle({"stick": {"radius": 0.15}, "sphere": {"radius": 0.5}})
 
     from stmol import showmol
 
     view.zoomTo()
-    showmol(view, height=500, width=800)
+    showmol(view, height=400, width=600)
