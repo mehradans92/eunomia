@@ -77,6 +77,13 @@ def main():
     # A button to trigger the processing
     process_button = st.button("Extract Information")
 
+    from pymatgen.vis.structure_vtk import StructureVis
+    from pymatgen import Structure
+
+    structure = Structure.from_file("qmof-000dce3.cif")
+    vis = StructureVis(structure)
+    vis.show()
+
     if process_button:
         if input_method == "Upload PDF file" and uploaded_file is not None:
             # Process the uploaded PDF
@@ -125,7 +132,7 @@ def main():
                 length_answer = len(pretty_json)
                 st.success("Voila! 😃")
                 st.text_area(
-                    "Answer:", pretty_json, height=max(length_answer // 4, 200)
+                    "Materials found:", pretty_json, height=max(length_answer // 4, 300)
                 )
                 end = time.time()
                 clock_time = end - start
