@@ -66,11 +66,8 @@ with col1:
 
 def main():
     # Radio button for user choice between uploading a file and entering text
+    input_method = st.radio("Choose input method:", ("Upload PDF file", "Input text"))
     with st.form(key="columns_in_form", clear_on_submit=False):
-        input_method = st.radio(
-            "Choose input method:", ("Upload PDF file", "Input text")
-        )
-
         uploaded_file = None
         text_input = None
 
