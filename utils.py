@@ -4,7 +4,6 @@ def visualize(cif_path):
     import py3Dmol
 
     # Replace 'path_to_your_file.cif' with the path to your CIF file
-    cif_path = "qmof-000dce3.cif"
     parser = CifParser(cif_path)
     structure = parser.get_structures()[0]
 
