@@ -149,7 +149,7 @@ def main():
         clear_on_submit=False,
     ):
         # Conditional logic to display the file uploader or the text input area based on the radio button selection
-        if input_method == "Upload PDF file":
+        if input_method == "Upload file":
             uploaded_file = st.file_uploader(
                 "Drag and drop or click to upload a file",
                 type=["pdf", "md", "csv", "txt"],
@@ -161,9 +161,10 @@ def main():
         process_button = st.form_submit_button("Extract Information")
 
         if process_button:
-            if input_method == "Upload PDF file" and uploaded_file is not None:
-                # Process the uploaded PDF
-                with NamedTemporaryFile(delete=False, suffix=".pdf") as tmp_file:
+            if input_method == "Upload file" and uploaded_file is not None:
+                # Process the uploaded file
+                extention = uploaded_file.split(".")[-1]
+                with NamedTemporaryFile(delete=False, suffix=extention) as tmp_file:
                     tmp_file.write(uploaded_file.getvalue())
                     file_path = tmp_file.name
                 docs_processor = eunomia.LoadDoc(file_name=file_path, encoding="utf8")
