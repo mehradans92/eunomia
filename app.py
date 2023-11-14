@@ -28,7 +28,7 @@ with st.sidebar:
         placeholder="sk-...",
         help=f"['What is that?']({api_key_url})",
         type="password",
-        value="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",
+        value="",
     )
     os.environ["OPENAI_API_KEY"] = f"{api_key}"  #
     if len(api_key) != 51:
@@ -118,21 +118,21 @@ def main():
 
     prompt = st.text_area(
         "Input search prompt:",
-        value=input_prompt,
+        value="",
         help=f"You can use this as an example and update your prompt accordingly: {utils.example_input_prompt}",
         height=150,
     )
     with st.expander("Guidelines (optional):", expanded=False):
         rules = st.text_area(
             "Enter your guidelines here:",
-            value=chem_rules,
+            value="",
             help=f"You can use this as an example and update your guidelines accordingly: {utils.example_chemical_rules}",
             height=150,
         )
     with st.expander("Output formatting rules (optional):", expanded=False):
         output_rules = st.text_area(
             "Enter your rules here:",
-            value=f"Your final answer should be in a parsable JSON format. {example_output_formatting_rules}",
+            value=f"Your final answer should be in a parsable JSON format.",
             help=f"You can use this as an example and update your desired output format accordingly: {utils.example_output_formatting_rules}",
             height=150,
         )
