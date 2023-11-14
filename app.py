@@ -137,7 +137,7 @@ def main():
             height=150,
         )
     # Radio button for user choice between uploading a file and entering text
-    input_method = st.radio("Choose input method:", ("Upload PDF file", "Input text"))
+    input_method = st.radio("Choose input method:", ("Upload file", "Input text"))
     # # Add a checkbox for the chain-of-verification
     # chain_of_verification = st.checkbox(
     #     "Add Chain-of-Verification (CoV)",
@@ -151,7 +151,8 @@ def main():
         # Conditional logic to display the file uploader or the text input area based on the radio button selection
         if input_method == "Upload PDF file":
             uploaded_file = st.file_uploader(
-                "Drag and drop or click to upload a file (PDF only)", type="pdf"
+                "Drag and drop or click to upload a file",
+                type=["pdf", "md", "csv", "txt"],
             )
         elif input_method == "Input text":
             text_input = st.text_area("Enter your text here:")
@@ -173,18 +174,17 @@ def main():
                         "acknowledgments",
                         "references\n",
                     ],
-                    chunk_size=1000,
+                    chunk_size=2000,
                     chunk_overlap=50,
                     chunking_type="fixed-size",
                 )
-                st.write("PDF processed.")
             elif input_method == "Input text" and text_input:
                 # Process the input text
                 docs_processor = eunomia.LoadDoc(text_input=text_input)
                 sliced_pages = docs_processor.process(
                     chunk_size=600, chunk_overlap=50, chunking_type="NLTK"
                 )
-                st.write("Text processed.")
+            st.write("Input loaded.")
 
             Embedding_model = "text-embedding-ada-002"
             faiss_index = FAISS.from_documents(
