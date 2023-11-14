@@ -35,7 +35,7 @@ with st.sidebar:
         st.warning("Please enter a valid OpenAI API key.", icon="⚠️")
 
     st.markdown(
-        "This tool allows you to extract information on water stability property of metal-organic frameworks from a scientific paper or input txt. This AI chemist agent uses OpenAI's GPT models, so you must have your own API key. Each query is about 16k tokens, which costs about only $0.50 on your own API key, charged by OpenAI."
+        "This tool allows you to extract information on materials properties from a scientific paper or input txt using natural language. This AI chemist agent uses OpenAI's GPT models, so you must have your own API key. Each query is about 16k tokens, which costs about only $0.50 on your own API key, charged by OpenAI."
     )
     st.markdown("Used libraries:\n * [Eunomia](https://github.com/AI4ChemS/Eunomia)")
     st.markdown(
