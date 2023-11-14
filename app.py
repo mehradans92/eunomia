@@ -163,7 +163,7 @@ def main():
         if process_button:
             if input_method == "Upload file" and uploaded_file is not None:
                 # Process the uploaded file
-                extention = uploaded_file.name.split(".")[-1]
+                extention = os.path.splitext(uploaded_file.name)[-1]
                 print(extention)
                 with NamedTemporaryFile(delete=False, suffix=extention) as tmp_file:
                     tmp_file.write(uploaded_file.getvalue())
