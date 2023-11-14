@@ -107,13 +107,13 @@ def main():
         material = st.text_input(
             "Material type:",
             placeholder="Peptides, MOFs, Dopants, ...",
-            value="Peptide sequence",
+            value="",
         )
     with col2:
         property = st.text_input(
             "Property of Interest:",
             placeholder="Water Stability, Solubility, ...",
-            value="VEGFR affinity",
+            value="",
         )
 
     prompt = st.text_area(
