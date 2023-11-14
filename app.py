@@ -164,7 +164,6 @@ def main():
             if input_method == "Upload file" and uploaded_file is not None:
                 # Process the uploaded file
                 extention = os.path.splitext(uploaded_file.name)[-1]
-                print(extention)
                 with NamedTemporaryFile(delete=False, suffix=extention) as tmp_file:
                     tmp_file.write(uploaded_file.getvalue())
                     file_path = tmp_file.name
@@ -207,8 +206,8 @@ def main():
 
             with st.spinner("⏳ Please wait..."):
                 start = time.time()
-                agent_prompt = f"Read the document and find the mentioned {material}'s {property}\
-                            \Check your answers and if the reasoning is not valid, try to check the document again for reasons.\
+                agent_prompt = f"Read the document and find the mentioned {material}s and their {property}\
+                            Check your answers and if the reasoning is not valid, try to check the document again for better reasons.\
                             "
                 print(output_rules)
                 if len(output_rules) > 0:
