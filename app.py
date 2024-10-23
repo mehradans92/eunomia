@@ -9,6 +9,27 @@ from tempfile import NamedTemporaryFile
 import time
 import json
 import utils
+import nltk
+import tempfile
+
+
+# Add this setup function
+def setup_nltk():
+    # Create a temporary directory for NLTK data
+    nltk_data_dir = os.path.join(tempfile.gettempdir(), 'nltk_data')
+    os.makedirs(nltk_data_dir, exist_ok=True)
+    
+    # Set NLTK data path
+    nltk.data.path.append(nltk_data_dir)
+    
+    # Download required NLTK data
+    try:
+        nltk.download('punkt', download_dir=nltk_data_dir, quiet=True)
+    except Exception as e:
+        st.error(f"Error downloading NLTK data: {str(e)}")
+        
+# Call setup function before the main app code
+setup_nltk()
 
 
 # Initialize session state for logging if it's not already defined
