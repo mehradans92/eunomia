@@ -1,3 +1,4 @@
+nltk>=3.8.1
 git+https://github.com/AI4ChemS/Eunomia.git
 py3Dmol
 pymatgen
