@@ -9,31 +9,6 @@ from tempfile import NamedTemporaryFile
 import time
 import json
 import utils
-import tempfile
-
-
-# Set up NLTK data directory before any imports that might use NLTK
-import nltk
-nltk_dir = os.path.join(os.path.expanduser("~"), '.cache', 'nltk')
-os.makedirs(nltk_dir, exist_ok=True)
-nltk.data.path = [nltk_dir]  # Override the default paths
-
-# Set environment variable for llama_index
-os.environ['LLAMA_INDEX_CACHE_DIR'] = os.path.join(os.path.expanduser("~"), '.cache', 'llama_index')
-
-@st.cache_resource
-def setup_nltk():
-    try:
-        nltk.download('punkt', download_dir=nltk_dir, quiet=True)
-        return True
-    except Exception as e:
-        st.error(f"NLTK Download Error: {str(e)}")
-        return False
-
-if not setup_nltk():
-    st.error("Failed to initialize required language models.")
-    st.stop()
-
 
 # Initialize session state for logging if it's not already defined
 if "log" not in st.session_state:
@@ -153,7 +128,7 @@ def main():
                 # Process the input text
                 docs_processor = eunomia.LoadDoc(text_input=text_input)
                 sliced_pages = docs_processor.process(
-                    chunk_size=600, chunk_overlap=50, chunking_type="NLTK"
+                    chunk_size=600, chunk_overlap=50, chunking_type="fixed-size"
                 )
             st.write("Input loaded.")
 
