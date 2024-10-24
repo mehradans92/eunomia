@@ -9,27 +9,30 @@ from tempfile import NamedTemporaryFile
 import time
 import json
 import utils
-import nltk
 import tempfile
 
 
-# Add this setup function
+# Set up NLTK data directory before any imports that might use NLTK
+import nltk
+nltk_dir = os.path.join(os.path.expanduser("~"), '.cache', 'nltk')
+os.makedirs(nltk_dir, exist_ok=True)
+nltk.data.path = [nltk_dir]  # Override the default paths
+
+# Set environment variable for llama_index
+os.environ['LLAMA_INDEX_CACHE_DIR'] = os.path.join(os.path.expanduser("~"), '.cache', 'llama_index')
+
+@st.cache_resource
 def setup_nltk():
-    # Create a temporary directory for NLTK data
-    nltk_data_dir = os.path.join(tempfile.gettempdir(), 'nltk_data')
-    os.makedirs(nltk_data_dir, exist_ok=True)
-    
-    # Set NLTK data path
-    nltk.data.path.append(nltk_data_dir)
-    
-    # Download required NLTK data
     try:
-        nltk.download('punkt', download_dir=nltk_data_dir, quiet=True)
+        nltk.download('punkt', download_dir=nltk_dir, quiet=True)
+        return True
     except Exception as e:
-        st.error(f"Error downloading NLTK data: {str(e)}")
-        
-# Call setup function before the main app code
-setup_nltk()
+        st.error(f"NLTK Download Error: {str(e)}")
+        return False
+
+if not setup_nltk():
+    st.error("Failed to initialize required language models.")
+    st.stop()
 
 
 # Initialize session state for logging if it's not already defined
