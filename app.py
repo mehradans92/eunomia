@@ -4,7 +4,6 @@ from PIL import Image
 from tempfile import NamedTemporaryFile
 import time
 import json
-import utils
 
 import nltk
 nltk_data_dir = "./resources/nltk_data_dir/"
@@ -19,6 +18,7 @@ import eunomia
 from langchain.vectorstores import FAISS
 from langchain.embeddings.openai import OpenAIEmbeddings
 from eunomia.agents import Eunomia
+import utils
 
 # Initialize session state for logging if it's not already defined
 if "log" not in st.session_state:
