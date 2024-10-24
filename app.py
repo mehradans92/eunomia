@@ -1,14 +1,24 @@
 import streamlit as st  # Web App
 import os
 from PIL import Image
-import eunomia
-from langchain.vectorstores import FAISS
-from langchain.embeddings.openai import OpenAIEmbeddings
-from eunomia.agents import Eunomia
 from tempfile import NamedTemporaryFile
 import time
 import json
 import utils
+
+import nltk
+nltk_data_dir = "./resources/nltk_data_dir/"
+if not os.path.exists(nltk_data_dir):
+    os.makedirs(nltk_data_dir, exist_ok=True)
+nltk.data.path.clear()
+nltk.data.path.append(nltk_data_dir)
+nltk.download("stopwords", download_dir=nltk_data_dir)
+nltk.download('punkt', download_dir=nltk_data_dir)
+
+import eunomia
+from langchain.vectorstores import FAISS
+from langchain.embeddings.openai import OpenAIEmbeddings
+from eunomia.agents import Eunomia
 
 # Initialize session state for logging if it's not already defined
 if "log" not in st.session_state:
