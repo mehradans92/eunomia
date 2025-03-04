@@ -93,7 +93,7 @@ def tools_generator(
 
         messages = [HumanMessage(content=prompt)]
         model = ChatOpenAI(
-            model_name=model,  # 'gpt-3.5-turbo' or 'gpt-4'
+            model_name='gpt-4o', 
             temperature=0.1,  # Control the randomness of the model's responses
             request_timeout=1000,  # Timeout setting (if needed)
         )
