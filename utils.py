@@ -95,30 +95,13 @@ def tools_generator(
         model = ChatOpenAI(
             model_name='gpt-4o', 
             temperature=0.1,  # Control the randomness of the model's responses
-            request_timeout=1000,  # Timeout setting (if needed)
+            request_timeout=5000,  # Timeout setting (if needed)
         )
         response = model(messages)
         return response.content
 
 
-    #     from openai import OpenAI
-    #     client = OpenAI()
-    #     model = "gpt-4o"
-    #     prompt = f"""
-    #             Do the below sentences actually talk about the {property} of the found {material}?
-    #             If not, try to find a better justification for that material in the document.
-
-    #             "{justification}"
-
-    #             To do this, you should check on the following rules,
-    #             "{rules}"
-    #             """
-    #     response = client.chat.completions.create(
-    #     model=model,
-    #     messages=[{"role": "user", "content": prompt}],
-    #     temperature=0,
-    # )
-    #     return response.choices[0].message["content"]
+ 
 
     @tool
     def recheck_justification(material_name):
