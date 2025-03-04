@@ -77,9 +77,10 @@ def tools_generator(
         """
         Use this tool to evalaute the justification, and make sure they are valid for every material found.
         """
-        from openai import OpenAI
-        client = OpenAI()
-        model = "gpt-4o"
+
+        from langchain_openai import ChatOpenAI
+        from langchain.schema import HumanMessage
+
         prompt = f"""
                 Do the below sentences actually talk about the {property} of the found {material}?
                 If not, try to find a better justification for that material in the document.
@@ -89,12 +90,35 @@ def tools_generator(
                 To do this, you should check on the following rules,
                 "{rules}"
                 """
-        response = client.chat.completions.create(
-        model=model,
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0,
-    )
-        return response.choices[0].message["content"]
+
+        messages = [HumanMessage(content=prompt)]
+        model = ChatOpenAI(
+            model_name=model,  # 'gpt-3.5-turbo' or 'gpt-4'
+            temperature=0,  # Control the randomness of the model's responses
+            request_timeout=1000,  # Timeout setting (if needed)
+        )
+        response = model(messages)
+        return response.content
+
+
+    #     from openai import OpenAI
+    #     client = OpenAI()
+    #     model = "gpt-4o"
+    #     prompt = f"""
+    #             Do the below sentences actually talk about the {property} of the found {material}?
+    #             If not, try to find a better justification for that material in the document.
+
+    #             "{justification}"
+
+    #             To do this, you should check on the following rules,
+    #             "{rules}"
+    #             """
+    #     response = client.chat.completions.create(
+    #     model=model,
+    #     messages=[{"role": "user", "content": prompt}],
+    #     temperature=0,
+    # )
+    #     return response.choices[0].message["content"]
 
     @tool
     def recheck_justification(material_name):
@@ -116,7 +140,8 @@ def tools_generator(
             {rules}"
         k = 6
         min_k = 2  # Minimum limit for k
-        llm = langchain.OpenAI(temperature=0, model_name="gpt-4")
+        from langchain_openai import ChatOpenAI
+        llm = ChatOpenAI(temperature=0, model_name="gpt-4o")
         result = eunomia.RetrievalQABypassTokenLimit(
             input_prompt,
             vector_store,
