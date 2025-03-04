@@ -94,7 +94,7 @@ def tools_generator(
         messages = [HumanMessage(content=prompt)]
         model = ChatOpenAI(
             model_name=model,  # 'gpt-3.5-turbo' or 'gpt-4'
-            temperature=0,  # Control the randomness of the model's responses
+            temperature=0.1,  # Control the randomness of the model's responses
             request_timeout=1000,  # Timeout setting (if needed)
         )
         response = model(messages)
@@ -141,7 +141,7 @@ def tools_generator(
         k = 6
         min_k = 2  # Minimum limit for k
         from langchain_openai import ChatOpenAI
-        llm = ChatOpenAI(temperature=0, model_name="gpt-4o")
+        llm = ChatOpenAI(temperature=0.1, model_name="gpt-4o")
         result = eunomia.RetrievalQABypassTokenLimit(
             input_prompt,
             vector_store,
@@ -163,7 +163,8 @@ def tools_generator(
         """
         k = 9
         min_k = 2  # Minimum limit for k
-        llm = langchain.OpenAI(temperature=0.1, model_name="gpt-4o")
+        from langchain_openai import ChatOpenAI
+        llm = ChatOpenAI(temperature=0.1, model_name="gpt-4o")
         result = eunomia.RetrievalQABypassTokenLimit(
             prompt,
             vector_store,
