@@ -150,7 +150,7 @@ def main():
             tool_kits = utils.tools_generator(
                 material, property, prompt, faiss_index, rules
             )
-            agent = Eunomia(tools=tool_kits, model="gpt-4", get_cost=True)
+            agent = Eunomia(tools=tool_kits, model="gpt-4o", get_cost=True)
 
             with st.spinner("⏳ Please wait..."):
                 start = time.time()
