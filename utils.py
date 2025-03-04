@@ -77,8 +77,8 @@ def tools_generator(
         """
         Use this tool to evalaute the justification, and make sure they are valid for every material found.
         """
-        import openai
-
+        from openai import OpenAI
+        client = OpenAI()
         model = "gpt-4o"
         prompt = f"""
                 Do the below sentences actually talk about the {property} of the found {material}?
@@ -89,12 +89,11 @@ def tools_generator(
                 To do this, you should check on the following rules,
                 "{rules}"
                 """
-        messages = [{"role": "user", "content": prompt}]
-        response = openai.ChatCompletion.create(
-            model=model,
-            messages=messages,
-            temperature=0,
-        )
+        response = client.chat.completions.create(
+        model=model,
+        messages=[{"role": "user", "content": prompt}],
+        temperature=0,
+    )
         return response.choices[0].message["content"]
 
     @tool
