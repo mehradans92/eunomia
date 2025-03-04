@@ -162,9 +162,12 @@ def main():
                     agent_prompt += agent_prompt + output_rules
                     print(f"agent prompt: {output_rules}")
                 result = agent.run(prompt=agent_prompt)
-                # Pretty print the JSON with an indent of 4
-                final_answer = json.loads(result)
-                pretty_json = json.dumps(final_answer, indent=4)
+                try:
+                    # Pretty print the JSON with an indent of 4
+                    final_answer = json.loads(result)
+                    pretty_json = json.dumps(final_answer, indent=4)
+                except:
+                    pretty_json = result
                 length_answer = len(pretty_json)
                 st.success("Voila! 😃")
                 st.text_area(
