@@ -142,7 +142,7 @@ def main():
                 )
             st.write("Input loaded.")
 
-            Embedding_model = "text-embedding-ada-002"
+            Embedding_model = "text-embedding-3-large"
             faiss_index = FAISS.from_documents(
                 sliced_pages, OpenAIEmbeddings(model=Embedding_model)
             )
