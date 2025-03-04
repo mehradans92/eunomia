@@ -79,7 +79,7 @@ def tools_generator(
         """
         import openai
 
-        model = "gpt-4"
+        model = "gpt-4o"
         prompt = f"""
                 Do the below sentences actually talk about the {property} of the found {material}?
                 If not, try to find a better justification for that material in the document.
@@ -139,7 +139,7 @@ def tools_generator(
         """
         k = 9
         min_k = 2  # Minimum limit for k
-        llm = langchain.OpenAI(temperature=0, model_name="gpt-4")
+        llm = langchain.OpenAI(temperature=0.1, model_name="gpt-4o")
         result = eunomia.RetrievalQABypassTokenLimit(
             prompt,
             vector_store,
